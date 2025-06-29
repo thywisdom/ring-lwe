@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["rustc", "cargo", "pkg-config", "openssl", "libssl-dev"]
+
+[phases.install]
+cmds = ["cargo build --release --bin ring-lwe-server"]
+
+[phases.build]
+cmds = ["echo 'Build completed'"]
+
+[start]
+cmd = "./target/release/ring-lwe-server" 
