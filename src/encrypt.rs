@@ -55,8 +55,8 @@ pub fn encrypt(
 /// let ciphertext_string = ring_lwe::encrypt::encrypt_string(pk_string, &message, &params, None);
 /// ```
 pub fn encrypt_string(pk_base64: &String, message: &String, params: &Parameters, seed: Option<u64>) -> String {
-    // Decode the Base64 public key string
-    let pk_arr: Vec<i64> = decompress(pk_base64);
+    let pk_base64_clean = pk_base64.replace(|c: char| c.is_whitespace(), "");
+    let pk_arr: Vec<i64> = decompress(&pk_base64_clean);
 
     // Split the public key into two polynomials
     let pk_b = Polynomial::new(pk_arr[..params.n].to_vec());

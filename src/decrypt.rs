@@ -50,11 +50,10 @@ pub fn decrypt(
 /// let decrypted_message = ring_lwe::decrypt::decrypt_string(sk_string, &ciphertext_string, &params);
 /// ```
 pub fn decrypt_string(sk_base64: &String, ciphertext_base64: &String, params: &Parameters) -> String {
-    // Decode the base64 secret key string and deserialize into a vector of i64 coefficients
-    let sk = Polynomial::new(decompress(sk_base64));
-
-    // Decode the Base64 ciphertext string and deserialize into vector of i64 coefficients
-    let ciphertext_array: Vec<i64> = decompress(ciphertext_base64);
+    let sk_base64_clean = sk_base64.replace(|c: char| c.is_whitespace(), "");
+    let sk = Polynomial::new(decompress(&sk_base64_clean));
+    let ciphertext_base64_clean = ciphertext_base64.replace(|c: char| c.is_whitespace(), "");
+    let ciphertext_array: Vec<i64> = decompress(&ciphertext_base64_clean);
 
     let num_blocks = ciphertext_array.len() / (2 * params.n);
     let mut decrypted_bits: Vec<i64> = Vec::new();
