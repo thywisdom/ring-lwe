@@ -7,14 +7,14 @@ WORKDIR /usr/src/app
 # Copy the manifests
 COPY Cargo.toml Cargo.lock ./
 
-# Create a dummy main.rs to build dependencies
-RUN mkdir src && echo "fn main() {}" > src/main.rs
+# Create a dummy main.rs and server.rs to build dependencies
+RUN mkdir src && echo "fn main() {}" > src/main.rs && echo "fn main() {}" > src/server.rs
 
 # Build dependencies (this layer will be cached)
 RUN cargo build --release
 
-# Remove the dummy main.rs and copy the real source code
-RUN rm src/main.rs
+# Remove the dummy main.rs and server.rs and copy the real source code
+RUN rm src/main.rs src/server.rs
 COPY src ./src
 
 # Build the application
