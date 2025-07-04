@@ -11,7 +11,7 @@ COPY Cargo.toml Cargo.lock ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
 
 # Build dependencies (this layer will be cached)
-RUN cargo build --release --bin ring-lwe-server
+RUN cargo build --release
 
 # Remove the dummy main.rs and copy the real source code
 RUN rm src/main.rs
