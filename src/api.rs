@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse, Result};
+use actix_web::{web, App, HttpServer, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 use crate::keygen::keygen_string;
 use crate::encrypt::encrypt_string;
@@ -6,7 +6,7 @@ use crate::decrypt::decrypt_string;
 use crate::utils::Parameters;
 use uuid::Uuid;
 use chrono::{DateTime, Utc};
-use log::info;
+use log::{info, error};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct KeyPairResponse {

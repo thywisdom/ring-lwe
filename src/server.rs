@@ -33,7 +33,7 @@ async fn main() -> std::io::Result<()> {
                     }))
             )
     })
-    .bind(format!("{}:{}", host, port))?
+    .bind((host, port))?
     .run()
     .await
 } 
